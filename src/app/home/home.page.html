@@ -1,10 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      File Manager App v2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-page-header [title]="pageTitle"></app-page-header>
 
 <ion-content [fullscreen]="true">
   <ion-item>
@@ -19,9 +13,4 @@
 
   <ion-button expand="full" (click)="createFile()">Save File</ion-button>
   <ion-button expand="full" (click)="nextPage()">Next Page</ion-button>
-  <ion-button>Test Button</ion-button>
-
-  <ion-tabs>
-    <ion-tab tab="home"></ion-tab>
-  </ion-tabs>
 </ion-content>

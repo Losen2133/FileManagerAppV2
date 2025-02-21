@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class HomePage {
   fileName: string = "";
   fileContent: string | any = "";
+  pageTitle: string = "File Manager App v2";
 
   constructor(private router: Router) {}
 

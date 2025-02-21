@@ -8,9 +8,10 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
   standalone: false
 })
 export class FilesPage implements OnInit {
-
-  constructor() { }
   fileList: string[] = [];
+  pageTitle: string = "Files";
+  constructor() { }
+  
 
   ngOnInit() {
     this.refreshFileList();
