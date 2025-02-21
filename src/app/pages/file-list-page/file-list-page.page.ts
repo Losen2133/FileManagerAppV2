@@ -8,24 +8,37 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
   standalone: false
 })
 export class FileListPagePage implements OnInit {
-  fileList: string[] = [];
+  fileList: { name: string; content: string | any;}[] = [];
   pageTitle: string = "Files";
   constructor() { }
 
   ngOnInit() {
-    this.refreshFileList();
+    this.loadFiles();
   }
 
-  async refreshFileList() {
+  async loadFiles() {
     try {
       const result = await Filesystem.readdir({
         path: "",
         directory: Directory.Documents
       });
-      this.fileList = result.files.map(file => file.name);
-    } catch(error) {
+
+      this.fileList = [];
+
+      for(const file of result.files) {
+        try {
+          const fileData = await Filesystem.readFile({
+            path: file.name,
+            directory: Directory.Documents
+          });
+  
+          this.fileList.push({ name: file.name, content: fileData.data });
+        } catch (error) {
+          console.log("Error reading file", error)
+        }
+      }
+    } catch (error) {
       console.log("Error reading directory", error);
     }
   }
-
 }

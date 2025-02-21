@@ -1,11 +1,16 @@
 <app-page-header [title]="pageTitle"></app-page-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item *ngFor="let file of fileList">
-      {{ file }}
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let file of fileList">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ file.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{ file.content }}</ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-<!-- <app-page-navigation></app-page-navigation> -->

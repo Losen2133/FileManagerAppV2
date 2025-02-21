@@ -25,6 +25,8 @@ export class MainPagePage implements OnInit {
         directory: Directory.Documents
       });
       alert("File created successfully!");
+      this.fileName = '';
+      this.fileContent = '';
     } catch (error) {
       console.log("Error saving file", error);
     }
