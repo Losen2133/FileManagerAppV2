@@ -1,18 +1,10 @@
-<app-page-header [title]="pageTitle"></app-page-header>
-
-<ion-content [fullscreen]="true">
-  <ion-item>
-    <ion-label position="floating">File Name</ion-label>
-    <ion-input [(ngModel)]="fileName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">File Content</ion-label>
-    <ion-textarea [(ngModel)]="fileContent"></ion-textarea>
-  </ion-item>
-
-  <ion-button expand="full" (click)="createFile()">Save File</ion-button>
-  <ion-button expand="full" (click)="nextPage()">Next Page</ion-button>
-</ion-content>
-
-<!-- <app-page-navigation></app-page-navigation> -->
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="main-page">
+            File Editor
+        </ion-tab-button>
+        <ion-tab-button tab="file-list-page">
+            Files
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

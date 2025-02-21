@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Directory, Filesystem } from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Component({
-  selector: 'app-files',
-  templateUrl: './files.page.html',
-  styleUrls: ['./files.page.scss'],
+  selector: 'app-file-list-page',
+  templateUrl: './file-list-page.page.html',
+  styleUrls: ['./file-list-page.page.scss'],
   standalone: false
 })
-export class FilesPage implements OnInit {
+export class FileListPagePage implements OnInit {
   fileList: string[] = [];
   pageTitle: string = "Files";
   constructor() { }
-  
 
   ngOnInit() {
     this.refreshFileList();
@@ -28,7 +27,5 @@ export class FilesPage implements OnInit {
       console.log("Error reading directory", error);
     }
   }
-
-  
 
 }
