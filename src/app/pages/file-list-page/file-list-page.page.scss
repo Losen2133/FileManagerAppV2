@@ -1,0 +1,11 @@
+div.card-footer {
+    display: flex;
+    justify-content:flex-end;
+    padding: 10px;
+    border-top: 1px solid lightgray;
+}
+
+div.actions {
+    display: flex;
+    gap: 5px;
+}

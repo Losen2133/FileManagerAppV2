@@ -9,6 +9,16 @@
             <ion-card-title>{{ file.name }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>{{ file.content }}</ion-card-content>
+          <div class="card-footer">
+            <div class="actions">
+              <ion-button fill="clear">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="danger">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>
