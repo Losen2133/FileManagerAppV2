@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { PageHeaderComponent } from '../components/page-header/page-header.component';
+import { PageNavigationComponent } from '../components/page-navigation/page-navigation.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { PageHeaderComponent } from '../components/page-header/page-header.compo
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    PageHeaderComponent
+    PageHeaderComponent,
+    PageNavigationComponent,
   ],
   declarations: [HomePage]
 })
