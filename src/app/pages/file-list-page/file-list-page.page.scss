@@ -1,11 +1,20 @@
 div.card-footer {
     display: flex;
-    justify-content:flex-end;
-    padding: 10px;
-    border-top: 1px solid lightgray;
+    justify-content: flex-end;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-top: 0.5px solid lightgray;
 }
 
 div.actions {
     display: flex;
     gap: 5px;
+    align-items: center;
+}
+
+ion-button.action-btn {
+    --padding-start: 4px;
+    --padding-end: 4px;
 }

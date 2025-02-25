@@ -11,10 +11,10 @@
           <ion-card-content>{{ file.content }}</ion-card-content>
           <div class="card-footer">
             <div class="actions">
-              <ion-button fill="clear">
+              <ion-button fill="clear" class="action-btn" (click)="editFile(file)">
                 <ion-icon name="create-outline"></ion-icon>
               </ion-button>
-              <ion-button fill="clear" color="danger">
+              <ion-button fill="clear" color="danger" class="action-btn" (click)="deleteFile(file)">
                 <ion-icon name="trash-outline"></ion-icon>
               </ion-button>
             </div>
@@ -23,4 +23,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="newFile()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
