@@ -11,7 +11,7 @@ import { Preferences } from '@capacitor/preferences';
 export class MainPagePage implements OnInit {
   fileName: string = "";
   isFileNameDisabled: boolean = false;
-  fileContent: string = "";
+  fileContent: string | any = "";
   buttonState: string = "Save File"
   pageTitle: string = "File Manager App v2";
   response: string = "File created successfully!";
@@ -27,28 +27,38 @@ export class MainPagePage implements OnInit {
   }
 
   async checkPreferences() {
-    const { value: state } = await Preferences.get({ key: 'state' });
+    try {
+      const state = (await Preferences.get({ key: 'state' }))?.value;
   
-    if (state === 'new') {
-      this.clearPage();
-      await Preferences.remove({ key: 'state' });
-    } else if (state === 'edit') {
-      const { value: fileDataJSON } = await Preferences.get({ key: 'fileData' });
-  
-      if (fileDataJSON !== null) {
-        const fileData = JSON.parse(fileDataJSON);
-        if (fileData) {
-          this.fileName = fileData.fileName;
+      if (state === 'new') {
+        this.clearPage();
+      } else if (state === 'edit') {
+        const filePath = (await Preferences.get({ key: 'filePath' }))?.value;
+        if(filePath) {
+          this.fileName = filePath;
           this.isFileNameDisabled = true;
-          this.fileContent = fileData.fileContent;
+          this.fileContent = await this.readFile(filePath);
           this.buttonState = "Save Changes";
           this.response = "File changes successfully saved!";
         }
       }
   
-      await Preferences.remove({ key: 'fileData' });
-      await Preferences.remove({ key: 'state' });
+      await Promise.all([
+        Preferences.remove({ key: 'state' }),
+        Preferences.remove({ key: 'filePath' })
+      ]);
+    } catch (error) {
+      console.error("Error checking preferences:", error);
     }
+  }
+  
+  async readFile(filePath: string) {
+    const result = await Filesystem.readFile({
+      path: filePath,
+      directory: Directory.Documents
+    });
+
+    return result.data;
   }
 
   clearPage() {
@@ -60,6 +70,11 @@ export class MainPagePage implements OnInit {
   }
 
   async saveFile() {
+    if (!this.fileName.trim()) {
+      alert("File name cannot be empty.");
+      return;
+    }
+
     try {
       await Filesystem.writeFile({
         path: this.fileName,

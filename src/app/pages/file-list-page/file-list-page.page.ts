@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-file-list-page',
@@ -13,13 +14,38 @@ export class FileListPagePage implements OnInit {
   fileList: { name: string; content: string | any;}[] = [];
   pageTitle: string = "Files";
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.loadFiles();
+  }
+
+  async confirmDelete(file: { name: string; content: string; }) {
+    const alert = await this.alertController.create({
+      header: "Confirm Delete?",
+      message: "This action is undoable",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: () => {
+            console.log("Delete Cancelled");
+          }
+        },
+        {
+          text: "Confirm",
+          role: "destructive",
+          handler: async () => {
+            await this.deleteFile(file);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async loadFiles() {
@@ -70,12 +96,7 @@ export class FileListPagePage implements OnInit {
   async editFile(file: {name: string, content: string}) {
     await Preferences.set({key: 'state', value: 'edit'});
 
-    const fileData = {
-      fileName: file.name,
-      fileContent: file.content
-    }
-
-    await Preferences.set({key: 'fileData', value: JSON.stringify(fileData)});
+    await Preferences.set({key: 'filePath', value: file.name});
     this.router.navigate(['home/main-page']);
   }
 }
